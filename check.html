@@ -135,7 +135,7 @@
 </head>
 <body>
 <div class="app-header">
-  <h1>📋 담임 관리 앱</h1>
+  <h1>📋 출결 및 각종 서류 제출 확인 앱</h1>
   <div class="subtitle" id="headerDate"></div>
 </div>
 <div class="tab-bar">
@@ -192,7 +192,13 @@
     </div>
   </div>
   <div class="setting-card">
-    <span class="setting-label">👥 학생 명단</span>
+    <span class="setting-label">👥 학생 명단 — 엑셀에서 붙여넣기</span>
+    <p style="font-size:12px;color:var(--text-muted);margin-bottom:8px;line-height:1.6;">엑셀에서 이름 열을 선택 후 복사(Ctrl+C)하고,<br>아래 칸에 붙여넣기(Ctrl+V) 하세요.</p>
+    <textarea id="pasteName" rows="5" placeholder="예시&#10;김민준&#10;이서연&#10;박지호&#10;..." style="width:100%;border:1.5px solid var(--border);border-radius:8px;padding:10px;font-family:inherit;font-size:13px;outline:none;resize:none;"></textarea>
+    <button class="btn-primary" onclick="importFromPaste()" style="margin-top:8px;">📋 명단 불러오기</button>
+  </div>
+  <div class="setting-card">
+    <span class="setting-label">👥 학생 명단 — 직접 편집</span>
     <div id="studentEditList"></div>
     <button class="btn-add-student" onclick="addStudentField()">＋ 학생 추가</button>
     <button class="btn-primary" onclick="saveStudents()">명단 저장</button>
@@ -594,6 +600,18 @@ function saveMemo(num,val) { appData.memos[num]=val; saveData(); }
 // ────────────────────────────
 // 설정
 // ────────────────────────────
+function importFromPaste() {
+  const raw = document.getElementById('pasteName').value;
+  const names = raw.split(/\r?\n/).map(s=>s.trim()).filter(Boolean);
+  if (names.length === 0) { alert('이름을 붙여넣어 주세요.'); return; }
+  if (!confirm(`${names.length}명으로 명단을 교체할까요?\n(기존 명단은 덮어써져요)`)) return;
+  appData.students = names;
+  saveData();
+  document.getElementById('pasteName').value = '';
+  renderStudentEditList();
+  alert(`✅ ${names.length}명 불러오기 완료!`);
+}
+
 function renderStudentEditList() {
   const cont = document.getElementById('studentEditList');
   cont.innerHTML = '';
