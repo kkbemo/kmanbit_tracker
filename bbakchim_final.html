@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>오늘의 빡침 해소소</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:'Nanum Gothic',sans-serif;
+    background:#f7f4ee;
+    min-height:100vh;
+    display:flex;flex-direction:column;align-items:center;
+    padding:1.5rem 1rem 3rem;
+    gap:0.9rem;
+  }
+  h1{font-size:13px;color:#9a9690;letter-spacing:.1em;font-weight:400;margin-top:.3rem;}
+  .scene{width:100%;max-width:540px;}
+  .scene svg{width:100%;height:auto;display:block;}
+  .rage-wrap{width:100%;max-width:540px;}
+  .rage-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;}
+  .rage-lbl{font-size:11px;color:#9a9690;}
+  .rage-total{font-size:13px;font-weight:700;color:#3a3835;}
+  .rage-bg{background:#e8e4da;border-radius:8px;height:8px;overflow:hidden;}
+  .rage-fill{height:100%;border-radius:8px;background:#EF9F27;transition:width .4s,background .4s;}
+  .reset-btn{
+    font-size:11px;color:#9a9690;background:none;
+    border:1px solid #d5d0c8;border-radius:20px;
+    padding:5px 18px;cursor:pointer;
+    font-family:'Nanum Gothic',sans-serif;
+    transition:all .2s;
+  }
+  .reset-btn:hover{color:#3a3835;border-color:#9a9690;}
+  .status-txt{font-size:12px;color:#9a9690;text-align:center;min-height:18px;}
+  .emoji-pop{
+    position:fixed;pointer-events:none;font-size:26px;
+    animation:floatUp 1s ease-out forwards;z-index:9999;
+  }
+  @keyframes floatUp{
+    0%{opacity:1;transform:translateY(0) scale(1);}
+    100%{opacity:0;transform:translateY(-90px) scale(1.6);}
+  }
+</style>
+</head>
+<body>
+
+<h1>오늘의 빡침 해소소</h1>
+
+<div class="scene">
+<svg id="mainSvg" viewBox="0 0 540 600" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <style>
+    .bt{font-family:'Nanum Gothic',sans-serif;font-size:11.5px;fill:#2C2C2A;pointer-events:none;user-select:none;}
+    .bc{font-family:'Nanum Gothic',sans-serif;font-size:10px;fill:#993C1D;font-weight:700;pointer-events:none;}
+    .cl{stroke:#2C2C2A;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+    .st{stroke:#E24B4A;stroke-width:2;fill:none;stroke-linecap:round;}
+    .ef{stroke:#E24B4A;stroke-width:1.8;fill:none;stroke-linecap:round;}
+    .bub{cursor:pointer;}
+    .bub:hover .cb{opacity:.82;}
+  </style>
+</defs>
+
+<rect x="0" y="0" width="540" height="600" fill="#f7f4ee" rx="18"/>
+
+<!-- 분노 효과선 -->
+<g id="efx" opacity="0">
+  <line class="ef" x1="255" y1="298" x2="237" y2="274"/>
+  <line class="ef" x1="268" y1="293" x2="266" y2="267"/>
+  <line class="ef" x1="281" y1="296" x2="296" y2="272"/>
+  <line class="ef" x1="292" y1="306" x2="313" y2="290"/>
+</g>
+
+<!-- ===== 1. 책상 ===== -->
+<rect x="60" y="430" width="420" height="30" rx="5" fill="#dfd0b8" stroke="#2C2C2A" stroke-width="1.5"/>
+<rect x="60" y="456" width="420" height="7" rx="2" fill="#c8b49a"/>
+<rect x="74" y="461" width="14" height="90" rx="3" fill="#c8b89a" stroke="#2C2C2A" stroke-width="1.2"/>
+<rect x="452" y="461" width="14" height="90" rx="3" fill="#c8b89a" stroke="#2C2C2A" stroke-width="1.2"/>
+<!-- 서류 -->
+<rect x="82" y="408" width="52" height="24" rx="2" fill="white" stroke="#2C2C2A" stroke-width="1" transform="rotate(-3,108,420)"/>
+<rect x="84" y="406" width="52" height="24" rx="2" fill="#eef4ff" stroke="#2C2C2A" stroke-width="1" transform="rotate(-1,110,418)"/>
+<rect x="86" y="404" width="52" height="24" rx="2" fill="white" stroke="#2C2C2A" stroke-width="1"/>
+<!-- 커피컵 -->
+<rect x="400" y="398" width="24" height="34" rx="4" fill="#f0e8d8" stroke="#2C2C2A" stroke-width="1.2"/>
+<path d="M 424 406 Q 433 406 433 414 Q 433 422 424 422" stroke="#2C2C2A" stroke-width="1.2" fill="none"/>
+<rect x="402" y="400" width="20" height="10" rx="2" fill="#b07850" opacity=".7"/>
+
+<!-- ===== 2. 모니터 ===== -->
+<rect x="248" y="390" width="44" height="44" rx="3" fill="#b0a898" stroke="#2C2C2A" stroke-width="1.2"/>
+<rect x="190" y="248" width="160" height="146" rx="8" fill="#3a3835" stroke="#2C2C2A" stroke-width="1.8"/>
+<rect x="200" y="257" width="140" height="126" rx="4" fill="#4a7a94"/>
+<rect id="screenGlow" x="200" y="257" width="140" height="126" rx="4" fill="#E24B4A" opacity="0"/>
+<rect x="208" y="265" width="60" height="8" rx="2" fill="white" opacity=".35"/>
+<rect x="208" y="278" width="88" height="5" rx="2" fill="white" opacity=".2"/>
+<rect x="208" y="288" width="72" height="5" rx="2" fill="white" opacity=".18"/>
+<rect x="208" y="298" width="54" height="5" rx="2" fill="white" opacity=".14"/>
+<rect x="208" y="308" width="78" height="5" rx="2" fill="white" opacity=".1"/>
+<rect x="208" y="318" width="44" height="5" rx="2" fill="white" opacity=".08"/>
+<rect x="208" y="330" width="66" height="5" rx="2" fill="white" opacity=".06"/>
+<rect x="208" y="343" width="50" height="5" rx="2" fill="white" opacity=".05"/>
+
+<!-- ===== 3. 캐릭터 뒷모습 ===== -->
+<g id="char">
+  <!-- 의자 등받이 -->
+  <rect x="218" y="412" width="104" height="12" rx="4" fill="#7a8fa4" stroke="#2C2C2A" stroke-width="1.3"/>
+  <line x1="236" y1="468" x2="226" y2="516" stroke="#5a6a7a" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="304" y1="468" x2="314" y2="516" stroke="#5a6a7a" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="226" y1="516" x2="314" y2="516" stroke="#5a6a7a" stroke-width="2" stroke-linecap="round"/>
+  <!-- 몸통 재킷 뒷면 -->
+  <rect x="228" y="378" width="84" height="60" rx="7" fill="#4a5568" stroke="#2C2C2A" stroke-width="1.6"/>
+  <line x1="270" y1="378" x2="270" y2="438" stroke="#3a4455" stroke-width="1.2"/>
+  <path d="M 228 390 Q 248 384 270 382 Q 292 384 312 390" stroke="#3a4455" stroke-width="1" fill="none"/>
+  <!-- 팔 -->
+  <path d="M 230 390 Q 212 416 204 434" stroke="#4a5568" stroke-width="14" stroke-linecap="round" fill="none"/>
+  <path d="M 230 390 Q 212 416 204 434" stroke="#2C2C2A" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <ellipse cx="200" cy="437" rx="10" ry="6" fill="#FAEEDA" stroke="#2C2C2A" stroke-width="1.2"/>
+  <path d="M 310 390 Q 328 416 336 434" stroke="#4a5568" stroke-width="14" stroke-linecap="round" fill="none"/>
+  <path d="M 310 390 Q 328 416 336 434" stroke="#2C2C2A" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <ellipse cx="340" cy="437" rx="10" ry="6" fill="#FAEEDA" stroke="#2C2C2A" stroke-width="1.2"/>
+  <!-- 목 -->
+  <rect x="262" y="360" width="16" height="20" rx="4" fill="#FAEEDA" stroke="#2C2C2A" stroke-width="1.3"/>
+  <!-- 뒷통수 -->
+  <ellipse id="headBack" cx="270" cy="332" rx="32" ry="30" fill="#FAEEDA" stroke="#2C2C2A" stroke-width="1.7"/>
+  <!-- 단발머리 -->
+  <path d="M 238 332 Q 238 300 270 297 Q 302 300 302 332 Q 302 350 294 360 Q 282 368 270 368 Q 258 368 246 360 Q 238 350 238 332 Z" fill="#2C2C2A"/>
+  <path d="M 240 338 Q 238 348 242 356 Q 247 364 256 366" stroke="#1a1a18" stroke-width="1" fill="none"/>
+  <path d="M 300 338 Q 302 348 298 356 Q 293 364 284 366" stroke="#1a1a18" stroke-width="1" fill="none"/>
+  <path d="M 256 298 Q 254 322 254 362" stroke="#3a3830" stroke-width=".8" fill="none" stroke-linecap="round"/>
+  <path d="M 270 297 Q 270 324 270 366" stroke="#3a3830" stroke-width=".8" fill="none" stroke-linecap="round"/>
+  <path d="M 284 298 Q 286 322 286 362" stroke="#3a3830" stroke-width=".8" fill="none" stroke-linecap="round"/>
+  <!-- 귀 -->
+  <ellipse cx="238" cy="336" rx="4.5" ry="5.5" fill="#FAEEDA" stroke="#2C2C2A" stroke-width="1.2"/>
+  <ellipse cx="302" cy="336" rx="4.5" ry="5.5" fill="#FAEEDA" stroke="#2C2C2A" stroke-width="1.2"/>
+  <circle cx="238" cy="343" r="2.5" fill="#d4af6a" stroke="#2C2C2A" stroke-width=".8"/>
+  <circle cx="302" cy="343" r="2.5" fill="#d4af6a" stroke="#2C2C2A" stroke-width=".8"/>
+  <!-- 뒷목 -->
+  <path d="M 258 364 Q 270 368 282 364" stroke="#c8a882" stroke-width="1" fill="none" stroke-linecap="round"/>
+  <!-- 열기 오버레이 -->
+  <ellipse id="headFlush" cx="270" cy="328" rx="26" ry="24" fill="#E24B4A" opacity="0"/>
+  <ellipse id="blushL" cx="238" cy="340" rx="5" ry="9" fill="#E24B4A" opacity="0"/>
+  <ellipse id="blushR" cx="302" cy="340" rx="5" ry="9" fill="#E24B4A" opacity="0"/>
+  <!-- 머리 위 김 -->
+  <g id="steamG" opacity="0">
+    <path class="st" d="M 256 290 Q 258 284 256 278 Q 254 272 256 266"/>
+    <path class="st" d="M 270 288 Q 272 282 270 276 Q 268 270 270 264"/>
+    <path class="st" d="M 284 290 Q 286 284 284 278 Q 282 272 284 266"/>
+  </g>
+</g>
+
+<!-- 책상 앞판 (하반신 가림) -->
+<rect x="60" y="430" width="420" height="6" rx="2" fill="#dfd0b8"/>
+<!-- 키보드 -->
+<rect x="188" y="418" width="92" height="14" rx="3" fill="#c8c0b4" stroke="#2C2C2A" stroke-width="1"/>
+<rect x="192" y="420" width="7" height="6" rx="1" fill="#a0988e"/>
+<rect x="201" y="420" width="7" height="6" rx="1" fill="#a0988e"/>
+<rect x="210" y="420" width="7" height="6" rx="1" fill="#a0988e"/>
+<rect x="219" y="420" width="7" height="6" rx="1" fill="#a0988e"/>
+<rect x="228" y="420" width="7" height="6" rx="1" fill="#a0988e"/>
+<rect x="237" y="420" width="7" height="6" rx="1" fill="#a0988e"/>
+<rect x="246" y="420" width="7" height="6" rx="1" fill="#a0988e"/>
+<rect x="255" y="420" width="7" height="6" rx="1" fill="#a0988e"/>
+<rect x="196" y="428" width="54" height="3" rx="1" fill="#a0988e"/>
+<ellipse cx="310" cy="426" rx="12" ry="8" fill="#c8c0b4" stroke="#2C2C2A" stroke-width="1"/>
+<line x1="310" y1="419" x2="310" y2="433" stroke="#2C2C2A" stroke-width=".8"/>
+
+<!-- ===== 말풍선 3×3 그리드 ===== -->
+
+<!-- 0: 좌상 -->
+<g class="bub" id="b0" onclick="pop(0,event)">
+  <g class="cb" id="bs0">
+    <circle cx="46" cy="62" r="24" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="70" cy="50" r="22" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="96" cy="48" r="23" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="121" cy="56" r="21" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="130" cy="78" r="20" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="116" cy="92" r="20" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="90" cy="96" r="19" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="64" cy="90" r="19" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <rect x="42" y="52" width="102" height="44" fill="#fffef5" stroke="none"/>
+    <circle cx="122" cy="106" r="7" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.2"/>
+    <circle cx="135" cy="120" r="5" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.2"/>
+    <circle cx="145" cy="132" r="3" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.1"/>
+  </g>
+  <text class="bt" text-anchor="middle">
+    <tspan x="88" y="66">요즘 교무부장님</tspan>
+    <tspan x="88" dy="16">때문에 연구부</tspan>
+    <tspan x="88" dy="16">너무 힘들어해..</tspan>
+  </text>
+  <text class="bc" id="c0" text-anchor="middle" x="88" y="98">0회</text>
+</g>
+
+<!-- 1: 중상 -->
+<g class="bub" id="b1" onclick="pop(1,event)">
+  <g class="cb" id="bs1">
+    <circle cx="210" cy="60" r="22" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="234" cy="48" r="22" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="260" cy="46" r="23" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="286" cy="48" r="22" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="308" cy="60" r="21" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="314" cy="81" r="20" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="300" cy="95" r="19" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="274" cy="100" r="19" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="248" cy="100" r="19" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="222" cy="95" r="18" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="207" cy="80" r="18" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <rect x="204" y="50" width="116" height="50" fill="#fffef5" stroke="none"/>
+    <circle cx="270" cy="112" r="7" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.2"/>
+    <circle cx="270" cy="126" r="5" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.2"/>
+    <circle cx="270" cy="138" r="3" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.1"/>
+  </g>
+  <text class="bt" text-anchor="middle">
+    <tspan x="262" y="66">부장님, 작년에</tspan>
+    <tspan x="262" dy="16">이렇게 해줬잖아</tspan>
+    <tspan x="262" dy="16">맞지?</tspan>
+  </text>
+  <text class="bc" id="c1" text-anchor="middle" x="262" y="100">0회</text>
+</g>
+
+<!-- 2: 우상 -->
+<g class="bub" id="b2" onclick="pop(2,event)">
+  <g class="cb" id="bs2">
+    <circle cx="412" cy="62" r="24" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="436" cy="50" r="22" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="462" cy="48" r="22" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="486" cy="55" r="21" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="496" cy="76" r="20" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="482" cy="90" r="20" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="456" cy="95" r="19" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="430" cy="90" r="19" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <rect x="408" y="52" width="102" height="44" fill="#fffef5" stroke="none"/>
+    <circle cx="418" cy="106" r="7" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.2"/>
+    <circle cx="406" cy="120" r="5" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.2"/>
+    <circle cx="396" cy="132" r="3" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.1"/>
+  </g>
+  <text class="bt" text-anchor="middle">
+    <tspan x="454" y="66">교무부장님이</tspan>
+    <tspan x="454" dy="16">또 말 걸어옴</tspan>
+  </text>
+  <text class="bc" id="c2" text-anchor="middle" x="454" y="94">0회</text>
+</g>
+
+<!-- 3: 좌중 -->
+<g class="bub" id="b3" onclick="pop(3,event)">
+  <g class="cb" id="bs3">
+    <circle cx="46" cy="200" r="24" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="70" cy="188" r="22" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="96" cy="186" r="22" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="120" cy="192" r="21" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="130" cy="212" r="20" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="116" cy="226" r="20" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="90" cy="230" r="19" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="64" cy="224" r="19" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <rect x="42" y="190" width="102" height="42" fill="#fffef5" stroke="none"/>
+    <circle cx="122" cy="240" r="7" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.2"/>
+    <circle cx="135" cy="254" r="5" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.2"/>
+    <circle cx="145" cy="265" r="3" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.1"/>
+  </g>
+  <text class="bt" text-anchor="middle">
+    <tspan x="88" y="204">교무부장님이</tspan>
+    <tspan x="88" dy="16">또 물어봄</tspan>
+  </text>
+  <text class="bc" id="c3" text-anchor="middle" x="88" y="232">0회</text>
+</g>
+
+<!-- 4: 중중 -->
+<g class="bub" id="b4" onclick="pop(4,event)">
+  <g class="cb" id="bs4">
+    <circle cx="210" cy="198" r="22" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="234" cy="186" r="22" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="260" cy="184" r="23" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="286" cy="186" r="22" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="308" cy="198" r="21" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="314" cy="219" r="20" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="300" cy="234" r="19" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="274" cy="239" r="19" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="248" cy="239" r="19" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="222" cy="234" r="18" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="207" cy="219" r="18" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <rect x="204" y="188" width="116" height="54" fill="#fffef5" stroke="none"/>
+    <circle cx="270" cy="252" r="7" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.2"/>
+    <circle cx="270" cy="266" r="5" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.2"/>
+    <circle cx="270" cy="278" r="3" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.1"/>
+  </g>
+  <text class="bt" text-anchor="middle">
+    <tspan x="262" y="202">돌다리 두들길</tspan>
+    <tspan x="262" dy="16">생각은 안 하고</tspan>
+    <tspan x="262" dy="16">물어보기만 바쁨</tspan>
+  </text>
+  <text class="bc" id="c4" text-anchor="middle" x="262" y="238">0회</text>
+</g>
+
+<!-- 5: 우중 -->
+<g class="bub" id="b5" onclick="pop(5,event)">
+  <g class="cb" id="bs5">
+    <circle cx="412" cy="200" r="24" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="436" cy="188" r="22" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="462" cy="186" r="22" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="486" cy="192" r="21" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="496" cy="213" r="20" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="482" cy="228" r="20" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="456" cy="232" r="19" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="430" cy="228" r="19" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <rect x="408" y="190" width="102" height="44" fill="#fffef5" stroke="none"/>
+    <circle cx="418" cy="243" r="7" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.2"/>
+    <circle cx="406" cy="257" r="5" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.2"/>
+    <circle cx="396" cy="268" r="3" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.1"/>
+  </g>
+  <text class="bt" text-anchor="middle">
+    <tspan x="454" y="204">교무부(장)이</tspan>
+    <tspan x="454" dy="16">전임자 탓함..</tspan>
+  </text>
+  <text class="bc" id="c5" text-anchor="middle" x="454" y="232">0회</text>
+</g>
+
+<!-- 6: 하좌 -->
+<g class="bub" id="b6" onclick="pop(6,event)">
+  <g class="cb" id="bs6">
+    <circle cx="44" cy="508" r="22" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="66" cy="496" r="21" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="92" cy="492" r="22" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="118" cy="494" r="21" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="138" cy="506" r="20" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="142" cy="526" r="19" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="126" cy="539" r="19" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="100" cy="543" r="18" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="74" cy="541" r="18" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="52" cy="530" r="17" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <rect x="40" y="494" width="110" height="48" fill="#fffef5" stroke="none"/>
+    <circle cx="130" cy="476" r="7" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.2"/>
+    <circle cx="143" cy="464" r="5" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.2"/>
+    <circle cx="153" cy="454" r="3" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.1"/>
+  </g>
+  <text class="bt" text-anchor="middle">
+    <tspan x="93" y="510">이것까지</tspan>
+    <tspan x="93" dy="16">말해줘야 해?</tspan>
+    <tspan x="93" dy="16">알려줘야 해?</tspan>
+  </text>
+  <text class="bc" id="c6" text-anchor="middle" x="93" y="542">0회</text>
+</g>
+
+<!-- 7: 하중 -->
+<g class="bub" id="b7" onclick="pop(7,event)">
+  <g class="cb" id="bs7">
+    <circle cx="210" cy="510" r="22" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="234" cy="498" r="22" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="260" cy="494" r="23" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="286" cy="496" r="22" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="308" cy="508" r="21" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="314" cy="529" r="20" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="300" cy="543" r="19" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="274" cy="548" r="19" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="248" cy="548" r="19" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="222" cy="543" r="18" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="207" cy="529" r="18" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <rect x="204" y="498" width="116" height="54" fill="#fffef5" stroke="none"/>
+    <circle cx="270" cy="476" r="7" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.2"/>
+    <circle cx="270" cy="462" r="5" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.2"/>
+    <circle cx="270" cy="451" r="3" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.1"/>
+  </g>
+  <text class="bt" text-anchor="middle">
+    <tspan x="262" y="514">알아서 해줄 수</tspan>
+    <tspan x="262" dy="16">없는 건가..</tspan>
+  </text>
+  <text class="bc" id="c7" text-anchor="middle" x="262" y="546">0회</text>
+</g>
+
+<!-- 8: 하우 -->
+<g class="bub" id="b8" onclick="pop(8,event)">
+  <g class="cb" id="bs8">
+    <circle cx="400" cy="508" r="22" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="422" cy="496" r="21" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="448" cy="492" r="22" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="474" cy="494" r="21" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="494" cy="506" r="20" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="498" cy="526" r="19" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="482" cy="539" r="19" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="456" cy="543" r="18" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="430" cy="541" r="18" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <circle cx="408" cy="530" r="17" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.3"/>
+    <rect x="396" y="494" width="110" height="48" fill="#fffef5" stroke="none"/>
+    <circle cx="412" cy="476" r="7" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.2"/>
+    <circle cx="400" cy="462" r="5" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.2"/>
+    <circle cx="390" cy="452" r="3" fill="#fffef5" stroke="#2C2C2A" stroke-width="1.1"/>
+  </g>
+  <text class="bt" text-anchor="middle">
+    <tspan x="450" y="510">이건 알아서</tspan>
+    <tspan x="450" dy="16">해줄 수 없나?</tspan>
+    <tspan x="450" dy="16">1인부서 아님?</tspan>
+  </text>
+  <text class="bc" id="c8" text-anchor="middle" x="450" y="542">0회</text>
+</g>
+
+</svg>
+</div>
+
+<p class="status-txt" id="statusTxt">말풍선을 눌러봐요 (●'◡'●)</p>
+
+<div class="rage-wrap">
+  <div class="rage-row">
+    <span class="rage-lbl">오늘의 빡침 게이지</span>
+    <span class="rage-total">총 <span id="totalSpan">0</span>회</span>
+  </div>
+  <div class="rage-bg"><div class="rage-fill" id="rageFill" style="width:0%"></div></div>
+</div>
+<button class="reset-btn" onclick="resetAll()">오늘 하루 털어버리기 ↺</button>
+
+<script>
+const counts=new Array(9).fill(0);let total=0;
+const statuses=[
+  "말풍선을 눌러봐요 (●'◡'●)",
+  "눈이 가늘어지는 중...",
+  "이마에 힘 들어가는 중...",
+  "뚜껑 열리기 직전",
+  "입술 꾹 다뭄",
+  "내가 왜 이걸...",
+  "숨 크게 들이쉬는 중",
+  "오늘 치킨은 내 거야",
+  "퇴근만 바라보는 중",
+  "괜찮아... 괜찮아..."
+];
+
+function updateFace(){
+  const p=Math.min(1,total/20);
+  document.getElementById('headFlush').setAttribute('opacity',(p*0.35).toFixed(2));
+  const bop=(p*0.55).toFixed(2);
+  document.getElementById('blushL').setAttribute('opacity',bop);
+  document.getElementById('blushR').setAttribute('opacity',bop);
+  document.getElementById('screenGlow').setAttribute('opacity',(p*0.5).toFixed(2));
+  const r=Math.round(0xFA+(0xE2-0xFA)*p),g=Math.round(0xAE+(0x4B-0xAE)*p),b=Math.round(0xDA+(0x4A-0xDA)*p);
+  document.getElementById('headBack').setAttribute('fill',`rgb(${r},${g},${b})`);
+}
+
+function getC(id){return document.querySelectorAll('#'+id+' .cb circle');}
+
+function pop(i,e){
+  counts[i]++;total++;
+  document.getElementById('c'+i).textContent=counts[i]+'회';
+  document.getElementById('totalSpan').textContent=total;
+  const f=counts[i]>=5?'#FCEBEB':counts[i]>=2?'#FAEEDA':'#fffef5';
+  getC('b'+i).forEach(c=>c.style.fill=f);
+  document.querySelectorAll('#b'+i+' .cb rect').forEach(r=>r.style.fill=f);
+  updateFace();updateSteam();updateRage();spawnEmoji(e);
+  document.getElementById('statusTxt').textContent=statuses[Math.min(statuses.length-1,Math.floor(total/2))];
+}
+
+function updateSteam(){
+  const s=document.getElementById('steamG'),e=document.getElementById('efx');
+  if(total>=12){s.setAttribute('opacity','1');e.setAttribute('opacity','1');}
+  else if(total>=6){s.setAttribute('opacity','0.6');e.setAttribute('opacity','0.5');}
+  else if(total>=3){s.setAttribute('opacity','0.2');e.setAttribute('opacity','0');}
+  else{s.setAttribute('opacity','0');e.setAttribute('opacity','0');}
+}
+
+function updateRage(){
+  const pct=Math.min(100,total*4);
+  const f=document.getElementById('rageFill');
+  f.style.width=pct+'%';
+  f.style.background=pct>70?'#E24B4A':pct>40?'#D85A30':'#EF9F27';
+}
+
+function spawnEmoji(e){
+  const list=['💢','😤','🔥','💥','😠','👹','😡'];
+  const el=document.createElement('div');
+  el.className='emoji-pop';
+  el.textContent=list[Math.floor(Math.random()*list.length)];
+  el.style.left=(e.clientX-14)+'px';
+  el.style.top=(e.clientY-14)+'px';
+  document.body.appendChild(el);
+  setTimeout(()=>el.remove(),1000);
+}
+
+function resetAll(){
+  for(let i=0;i<9;i++){
+    counts[i]=0;
+    document.getElementById('c'+i).textContent='0회';
+    getC('b'+i).forEach(c=>c.style.fill='#fffef5');
+    document.querySelectorAll('#b'+i+' .cb rect').forEach(r=>r.style.fill='#fffef5');
+  }
+  total=0;
+  document.getElementById('totalSpan').textContent='0';
+  document.getElementById('rageFill').style.width='0%';
+  document.getElementById('rageFill').style.background='#EF9F27';
+  document.getElementById('headBack').setAttribute('fill','#FAEEDA');
+  document.getElementById('headFlush').setAttribute('opacity','0');
+  document.getElementById('blushL').setAttribute('opacity','0');
+  document.getElementById('blushR').setAttribute('opacity','0');
+  document.getElementById('screenGlow').setAttribute('opacity','0');
+  document.getElementById('steamG').setAttribute('opacity','0');
+  document.getElementById('efx').setAttribute('opacity','0');
+  document.getElementById('statusTxt').textContent='마음이 가벼워졌어요 ✨';
+  setTimeout(()=>{document.getElementById('statusTxt').textContent="말풍선을 눌러봐요 (●'◡'●)";},2000);
+}
+</script>
+</body>
+</html>
